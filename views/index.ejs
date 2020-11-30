@@ -1,0 +1,24 @@
+<%- include("header") -%>
+
+<body>
+    <div class="container">
+        <div class="day">
+            <h1><%= dayOfweek %></h1>
+        </div>
+    </div>
+
+    <form action="/" method="POST">
+        <div class="textBody">
+            <div class="code">
+                <label for="code1">Enter First Code</label>
+                <textarea name="code1" cols="60" rows="20" placeholder="Enter Your Code Here..."></textarea>
+            </div>
+            <div class="code">
+                <label for="code2">Enter Second Code</label>
+                <textarea name="code2" id="" cols="60" rows="20" placeholder="Enter Your Code Here..."></textarea>
+            </div>
+        </div>
+        <button type="submit" name="button">Check!</button>
+    </form>
+</body>
+<%- include("footer") -%>
