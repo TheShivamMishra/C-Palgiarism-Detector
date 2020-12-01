@@ -2,8 +2,6 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const { PythonShell } = require("python-shell");
-const pyshell = new PythonShell("my_script.py");
-const codeParse = require(__dirname + "/codeParser.js"); // file for parsing the C++ code.
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -33,18 +31,19 @@ app.post("/", (req, res) => {
   var code1 = req.body.code1;
   var code2 = req.body.code2;
 
-//   console.log(code1);
-//   console.log(code2);
+  //   console.log(code1);
+  //   console.log(code2);
 
-  pyshell.send([code1, code2]);
+  let options = {
+    mode: "text",
+    pythonOptions: ["-u"],
+    args: [code1, code2],
+  };
 
-  pyshell.on("message", function (msg) {
-    console.log(msg);
-  });
-
-  pyshell.end(function (err, code, signal) {
-    if (err) throw err;
-    console.log("finished");
+  PythonShell.run("./my_script.py", options, function (err, results) {
+    if (!err) {
+      console.log(results);
+    } else throw err;
   });
 
   res.send("<h1>Data is Processing</h1>");
