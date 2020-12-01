@@ -43,10 +43,9 @@ app.post("/", (req, res) => {
   PythonShell.run("./my_script.py", options, function (err, results) {
     if (!err) {
       console.log(results);
-    } else throw err;
+      res.send("<h1>Data is Processing</h1>");
+    } else res.send("<h1>Oops something is wrong!</h1>");
   });
-
-  res.send("<h1>Data is Processing</h1>");
 });
 
 app.listen("3000", () => {

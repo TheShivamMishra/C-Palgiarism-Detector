@@ -1,3 +1,3 @@
 import sys
 
-print("hi this code is inside pytho")
+print(sys.argv[1],sys.argv[2])
