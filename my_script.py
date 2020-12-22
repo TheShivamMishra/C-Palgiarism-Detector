@@ -1,63 +1,38 @@
-import sys
-import nltk
+import os
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 
-code1 = sys.argv[1];
-code2 = sys.argv[2];
-# print(code1)
-text1 = code1.split('\r')
+student_files = [doc for doc in os.listdir() if doc.endswith('.txt')]
+student_notes =[open(File).read() for File in  student_files]
 
-# coding: utf-8
+vectorize = lambda Text: TfidfVectorizer().fit_transform(Text).toarray()
+similarity = lambda doc1, doc2: cosine_similarity([doc1, doc2])
 
-# Read document which in .txt format
+vectors = vectorize(student_notes)
+s_vectors = list(zip(student_files, vectors))
 
-file1=open("doc1.txt","r")
-text1=file1.readlines()
-text1
+def check_plagiarism():
+    plagiarism_results = set()
+    global s_vectors
+    for student_a, text_vector_a in s_vectors:
+        new_vectors =s_vectors.copy()
+        current_index = new_vectors.index((student_a, text_vector_a))
+        del new_vectors[current_index]
+        for student_b , text_vector_b in new_vectors:
+            sim_score = similarity(text_vector_a, text_vector_b)[0][1]
+            student_pair = sorted((student_a, student_b))
+            score = (student_pair[0], student_pair[1],sim_score)
+            plagiarism_results.add(score)
+    return plagiarism_results
 
-
-file2=open("doc2.txt","r")
-text2=file2.readlines()
-text2
-
-
-
-# Convert list to string 
-
-str1=''.join(text1)
-str2=''.join(text2)
-
-
-
-str1
-
-
-
-str2
-
-
-# Split the string
-
-sent_text1=str1.split('.')
-sent_text2=str2.split('.')
-
-
-
-sent_text1
-
-
-sent_text2
-
-
-# Create a for loop that compares two lists
-
-final_list=[]
-for z in sent_text1:
-    for y in sent_text2:
-        if z == y:
-            final_list.append(z)
-
-
-
-final_list
-
-print(85)
+data = check_plagiarism()
+i =0
+ans = 0
+for res in data:
+    for r in res:
+        if i==2:
+            ans = round(r,2)
+            break
+        i+=1
+    
+print(ans*100)

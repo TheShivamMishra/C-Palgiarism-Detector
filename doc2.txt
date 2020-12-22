@@ -1,17 +1,1 @@
-//this is just a simple programm for checking of plagiarism
-#include<iostream>
-#include<string>
-
-usign namespace std;
-
-void just_aRandom_function(float a,char d,string str)
-{
-   cout<<a<<d<<str<<endl; 
-}
-
-int main(){   //main function calling;
-int b;
-cin>>b;
-cout<<"the no you have entered is "<<a<<endl;
-just_aRandom_function(2.5,a,"hello programmer");
-}
+It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
