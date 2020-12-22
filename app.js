@@ -8,17 +8,17 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 
+let date = new Date();
+var option = {
+  weekday: "long",
+  day: "numeric",
+  month: "long",
+};
+
+date = date.toLocaleDateString("en-US", option);
+
 app.get("/", (req, res) => {
   // Rendering the Get Request of Server
-
-  let date = new Date();
-  var option = {
-    weekday: "long",
-    day: "numeric",
-    month: "long",
-  };
-
-  date = date.toLocaleDateString("en-US", option);
 
   res.render("index.ejs", {
     dayOfweek: date,
@@ -43,7 +43,10 @@ app.post("/", (req, res) => {
   PythonShell.run("./my_script.py", options, function (err, results) {
     if (!err) {
       console.log(results);
-      res.send("<h1>Data is Processing</h1>");
+      res.render("output", {
+        dayOfweek: date,
+        p: results,
+      });
     } else res.send("<h1>Oops something is wrong!</h1>");
   });
 });

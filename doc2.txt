@@ -1,0 +1,17 @@
+//this is just a simple programm for checking of plagiarism
+#include<iostream>
+#include<string>
+
+usign namespace std;
+
+void just_aRandom_function(float a,char d,string str)
+{
+   cout<<a<<d<<str<<endl; 
+}
+
+int main(){   //main function calling;
+int b;
+cin>>b;
+cout<<"the no you have entered is "<<a<<endl;
+just_aRandom_function(2.5,a,"hello programmer");
+}
